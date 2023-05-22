@@ -1,6 +1,6 @@
 # lexicon-movie-service
 This is a servie to list all movies from Cinama World, Film World cinemas and highlight cheapest price of ticket.
-The movies data are crawled from external API
+The movies data are crawled from external API which is <b>unreliable</b>. <b>Therefore, result list will be empty or only movies of one cinema are retunred in sometimes.</b>
 <br>
 This service is applied <b>reactive</b> technologies.
 # Prerequisite
@@ -73,4 +73,7 @@ curl --location 'localhost:8080/movies/compare'
     ...
 ]
 ```
-# Note:
+# Implementation
+- Movies crawling configuration is in ```application.yaml```.
+- If you want to crawl movies from another source, you can implement new crawler by ```implements MovieCrawler``` interface, and provide a converter to convert the response.
+
