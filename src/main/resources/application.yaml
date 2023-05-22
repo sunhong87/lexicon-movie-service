@@ -1,0 +1,7 @@
+lexicon-provider:
+  base-url: "https://challenge.lexicondigital.com.au"
+  path: "/api/v2/{cinema}/movies"
+  api-key: "Yr2636E6BTD3UCdleMkf7UEdqKnd9n361TQL9An7"
+  cinemas:
+    - "cinemaworld"
+    - "filmworld"
