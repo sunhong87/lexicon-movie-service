@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class LexiconMovieCrawler implements MovieCrawler {
   @Override
   public Flux<MovieModel> crawlMovies() {
     return Flux.fromIterable(config.getCinemas())
+        .subscribeOn(Schedulers.boundedElastic())
         .map(cinema -> crawlMovie(cinema))
         .flatMap(monoJson -> monoJson)
         .filter(optionalCrawlResp -> optionalCrawlResp.isPresent())
