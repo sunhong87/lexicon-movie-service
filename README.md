@@ -76,7 +76,7 @@ curl --location 'localhost:8080/movies/compare'
 # Web UI
 - After start the application
 - Open browser: http://localhost:8080/movies
-
+![Screenshot](movies_capture.png)
 # Implementation
 - Movies crawling configuration is in ```application.yaml```.
 - If you want to crawl movies from another source, you can implement new crawler by ```implements MovieCrawler``` interface, and provide a converter to convert the response.
