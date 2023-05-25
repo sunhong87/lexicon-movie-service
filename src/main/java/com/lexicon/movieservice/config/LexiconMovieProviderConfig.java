@@ -13,4 +13,5 @@ public class LexiconMovieProviderConfig {
   private String path;
   private List<String> cinemas;
   private String apiKey;
+  private String currency;
 }
