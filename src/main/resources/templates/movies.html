@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>MovieHunter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-func.js"></script>
+<!--[if IE 6]>
+  <link rel="stylesheet" href="css/ie6.css" type="text/css" media="all"/><![endif]-->
+</head>
+<body>
+<!-- START PAGE SOURCE -->
+<div id="shell">
+  <div id="main">
+    <div id="content">
+      <div class="box">
+        <div th:unless="${hasMovies}">
+          <span>No movies found</span>
+        </div>
+        <div th:each="movieComparision : ${moviesComparisonList}">
+          <div class="movie">
+            <div class="movie-image"> <span class="play"><span class="name" th:text="${movieComparision.title}"/></span> <a href="#"><img th:src="${movieComparision.poster}" alt="" /></a> </div>
+            <div th:each="movie: ${movieComparision.movies}">
+              <div class="rating">
+                <div th:if="${movie.isCheapest}">
+                  <h4  th:text="${movie.provider}"></h4>
+                  <h4 th:text="${movie.price + ' ' + movie.currency}"></h4>
+                </div>
+                <div th:unless="${movie.isCheapest}">
+                  <h4 style="color: white" th:text="${movie.provider}"></h4>
+                  <h4 style="color: white" th:text="${movie.price + ' ' + movie.currency}"></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cl">&nbsp;</div>
+      </div>
+    </div>
+    <div class="cl">&nbsp;</div>
+  </div>
+</div>
+<!-- END PAGE SOURCE -->
+</body>
+</html>
