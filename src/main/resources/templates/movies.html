@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>MovieHunter</title>
+<title>Prince's Theatre</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
@@ -16,9 +16,6 @@
   <div id="main">
     <div id="content">
       <div class="box">
-        <div th:unless="${hasMovies}">
-          <span>No movies found</span>
-        </div>
         <div th:each="movieComparision : ${moviesComparisonList}">
           <div class="movie">
             <div class="movie-image"> <span class="play"><span class="name" th:text="${movieComparision.title}"/></span> <a href="#"><img th:src="${movieComparision.poster}" alt="" /></a> </div>
