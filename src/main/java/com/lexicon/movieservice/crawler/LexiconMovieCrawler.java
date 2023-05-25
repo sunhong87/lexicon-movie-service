@@ -4,6 +4,7 @@ import com.lexicon.movieservice.config.LexiconMovieProviderConfig;
 import com.lexicon.movieservice.converter.MovieCrawlResponseConverter;
 import com.lexicon.movieservice.crawler.model.MoviesCrawlResponse;
 import com.lexicon.movieservice.share.model.MovieModel;
+import java.util.Locale;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,10 @@ public class LexiconMovieCrawler implements MovieCrawler {
         .flatMap(monoJson -> monoJson)
         .filter(optionalCrawlResp -> optionalCrawlResp.isPresent())
         .map(optionalCrawlResp -> optionalCrawlResp.get())
-        .doOnNext(crawlMovies -> crawlMovies.getMovies().forEach(movie -> movie.setProvider(crawlMovies.getProvider())))
+        .doOnNext(crawlMovies -> crawlMovies.getMovies().forEach(movie -> {
+          movie.setProvider(crawlMovies.getProvider());
+          movie.setCurrency(config.getCurrency());
+        }))
         .flatMap(crawlMovie -> Flux.fromIterable(crawlMovie.getMovies()));
   }
 

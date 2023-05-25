@@ -35,6 +35,7 @@ class MoviesControllerTest {
 		mockConfig.setBaseUrl("http://localhost:9989");
 		mockConfig.setPath("/api/v2/{cinema}/movies");
 		mockConfig.setCinemas(Arrays.asList("cinemaworld", "filmworld"));
+		mockConfig.setCurrency("USD");
 		converter = new DefaultMovieCrawlRespConverter();
 	}
 
@@ -82,6 +83,7 @@ class MoviesControllerTest {
 				.expectRecordedMatches(allMovies -> assertCheapestPriceCount(allMovies, 11))
 				//expect all movies should have provider name
 				.expectRecordedMatches(allMovies -> assertProviderInEachMovie(allMovies))
+				.expectRecordedMatches(allMovies -> assertCurrencyInEachMovie(allMovies, mockConfig.getCurrency()))
 				.expectComplete()
 				.verify();
 	}
@@ -185,5 +187,12 @@ class MoviesControllerTest {
 				.flatMap(movieComparisonModel -> movieComparisonModel.getMovies().stream())
 				.collect(Collectors.toList());
 		return movieModels.stream().allMatch(m -> StringUtils.isNotBlank(m.getProvider()));
+	}
+
+	private boolean assertCurrencyInEachMovie(Collection<MovieComparisonModel> comparisonModels, String expectCurrency) {
+		List<MovieModel> movieModels = comparisonModels.stream()
+				.flatMap(movieComparisonModel -> movieComparisonModel.getMovies().stream())
+				.collect(Collectors.toList());
+		return movieModels.stream().allMatch(m -> expectCurrency.equals(m.getCurrency()));
 	}
 }
