@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -23,6 +24,19 @@ public class MovieComparisonService {
                 .sorted(Comparator.comparing(MovieComparisonModel::getTitle))
                 .collect(Collectors.toList())
         );
+  }
+
+  private MovieComparisonModel mapToComparisonModel(
+      Collection<MovieModel> entry) {
+    MovieComparisonModel comparisonModel = new MovieComparisonModel();
+    entry.stream().findFirst().ifPresent(firstMovie -> {
+      comparisonModel.setTitle(firstMovie.getTitle());
+      comparisonModel.setPoster(firstMovie.getPoster());
+    });
+    comparisonModel.setMovies(entry.stream().collect(Collectors.toList()));
+    markCheapestMovie(comparisonModel.getMovies());
+    comparisonModel.getMovies().sort(Comparator.comparing(MovieModel::getPrice));
+    return comparisonModel;
   }
 
   private MovieComparisonModel mapToComparisonModel(

@@ -16,4 +16,5 @@ public class MovieModel {
   private Double price;
   private String provider;
   private boolean isCheapest;
+  private String currency;
 }

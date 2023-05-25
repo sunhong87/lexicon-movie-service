@@ -5,3 +5,4 @@ lexicon-provider:
   cinemas:
     - "cinemaworld"
     - "filmworld"
+  currency: USD
