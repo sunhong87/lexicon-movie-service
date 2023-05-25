@@ -39,7 +39,7 @@ docker run -dp 8080:8080 lexicon-movie-service
 ```script
 curl --location 'localhost:8080/movies/compare'
 ```
-# Get all movies API and sort by price
+# API
 - GET `/movies/compare`: Get a list of all movies from Cinama World, Film World cinemas. Highlight cheapest price of ticket<br>
 **Response** : The lowest price will be marked ```"cheapest": true```
 ```JSON
@@ -73,6 +73,10 @@ curl --location 'localhost:8080/movies/compare'
     ...
 ]
 ```
+# Web UI
+- After start the application
+- Open browser: http://localhost:8080/movies
+
 # Implementation
 - Movies crawling configuration is in ```application.yaml```.
 - If you want to crawl movies from another source, you can implement new crawler by ```implements MovieCrawler``` interface, and provide a converter to convert the response.
